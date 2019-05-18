@@ -13,6 +13,7 @@ function Post() {
 			this.postBox();
 			console.log(1)
 		}.bind(this)
+		// 删除和关闭功能
 		this.container.onclick= e=>{
 			console.log(e.target)
 			switch(e.target.id){
@@ -20,13 +21,24 @@ function Post() {
 				case "closeBtn": this.closeBtnClick(); break;
 			}
 		}
+		// 右键菜单
 		this.container.oncontextmenu=function(e){
 			let left=e.clientX,top=e.clientY;
 			this.target=e.target;
-			this.contextmenu(left,top);
+			this.creatContext(left,top);
+			this.contextmenu();
 			e.preventDefault();
+			this.container.onmousedown= ()=>{
+				console.log(123456)
+				this.context.remove();
+			}
 			
 		}.bind(this)
+// 		this.container.onmousedown= ()=>{
+// 			console.log(123456)
+// 			this.context.remove();
+// 		}
+		
 // 		for (var key in this.arr){
 // 			this.arr[key].onclick=function(){
 // 				this.contextmenu();
@@ -47,6 +59,7 @@ function Post() {
 		this.drag(this.container,"h4");
 		
 	},
+	// 居中显示方法
 	showCenter:function(obj){
 		tools.setStyle(obj,{
 			display:"block",
@@ -80,43 +93,37 @@ function Post() {
 			return false;
 		}.bind(this)
 	},
-		// 关闭按钮的方法
-		closeBtnClick:function(){
-			 this.box=this.container.querySelector("div");
-			 // this.box.style.display="none";
-			this.modal.remove();
-		},
-		// 确定按钮的方法
-		okBtnClick:function(){
-			this.username = tools.$("#username").value;
-			this.content1=tools.$("#content").value;
+	// 关闭按钮的方法
+	closeBtnClick:function(){
+		 this.box=this.container.querySelector("div");
+		 // this.box.style.display="none";
+		this.modal.remove();
+	},
+	// 确定按钮的方法
+	okBtnClick:function(){
+		this.username = tools.$("#username").value;
+		this.content1=tools.$("#content").value;
 
-			if(this.username===""||this.content===""){
-				alert("用户名或密码不能为空");
-			}else{
-				this.h6=this.container.querySelector("h6");
-				console.log(this.h6)
-				this.span=document.createElement("p");
-				this.span.className="text";
-				 this.str="";
-				  this.date=new Date();
-				 this.str=`${this.date.getFullYear()}年${this.date.getMonth()+1}月${this.date.getDate()}日${this.date.getHours()}时${this.date.getMinutes()}分${this.date.getSeconds()}秒`;
-				this.span.innerHTML=this.content1+"<br>"+this.str;
-				console.log(this.span);
-				this.h6.appendChild(this.span);
-				
-				
-			}
-		},
+		if(this.username===""||this.content===""){
+			alert("用户名或密码不能为空");
+		}else{
+			this.h6=this.container.querySelector("h6");
+			console.log(this.h6)
+			this.span=document.createElement("p");
+			this.span.className="text";
+			 this.str="";
+			  this.date=new Date();
+			 this.str=`${this.date.getFullYear()}年${this.date.getMonth()+1}月${this.date.getDate()}日${this.date.getHours()}时${this.date.getMinutes()}分${this.date.getSeconds()}秒`;
+			this.span.innerHTML=this.content1+"<br>"+this.str;
+			console.log(this.span);
+			this.h6.appendChild(this.span);
+		}
+	},
 		// 右键撤销菜单
-		contextmenu:function(left,top){
+		contextmenu:function(){
 			console.log(123)
-			this.arr=[];
-			this.context=document.createElement("ul");
-			this.context.className="contextmenu";
-			this.context.innerHTML='<li id="ret">撤销</li><li>刷新</li>';
-			this.context.style.left=left+"px";
-			this.context.style.top=top+"px";
+			// this.arr=[];
+
 			document.body.appendChild(this.context);
 			// this.arr.push(this.span);
 			this.ret=this.context.querySelector("#ret");
@@ -132,15 +139,23 @@ function Post() {
 					this.target.remove();
 					console.log(789)
 					this.context.remove();
+				}else{
+					this.context.remove();
 				}
 			}.bind(this)
-
 // 			this.container.onclick= ()=>{
 // 				console.log(123456)
 // 				this.context.remove();
 // 			}
 		},
-		
+		// 创建下拉菜单
+		creatContext:function(left,top){
+			this.context=document.createElement("ul");
+			this.context.className="contextmenu";
+			this.context.innerHTML='<li id="ret">撤销</li><li>刷新</li>';
+			this.context.style.left=left+"px";
+			this.context.style.top=top+"px";
+		}
 		
 	
 }
