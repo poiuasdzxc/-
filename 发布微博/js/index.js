@@ -101,7 +101,7 @@ function Post() {
 				 this.str="";
 				  this.date=new Date();
 				 this.str=`${this.date.getFullYear()}年${this.date.getMonth()+1}月${this.date.getDate()}日${this.date.getHours()}时${this.date.getMinutes()}分${this.date.getSeconds()}秒`;
-				this.span.innerHTML=this.content1+this.str;
+				this.span.innerHTML=this.content1+"<br>"+this.str;
 				console.log(this.span);
 				this.h6.appendChild(this.span);
 				
@@ -134,12 +134,11 @@ function Post() {
 					this.context.remove();
 				}
 			}.bind(this)
-			
-			
-			this.container.onclick= ()=>{
-				console.log(123456)
-				this.context.remove();
-			}
+
+// 			this.container.onclick= ()=>{
+// 				console.log(123456)
+// 				this.context.remove();
+// 			}
 		},
 		
 		
